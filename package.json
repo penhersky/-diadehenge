@@ -2,14 +2,24 @@
   "name": "react-3d",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "^15.x"
+  },
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
+    "@blueprintjs/core": "^3.36.0",
+    "@blueprintjs/icons": "^3.23.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-redux": "^7.2.2",
     "react-scripts": "4.0.1",
-    "web-vitals": "^0.2.4"
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "stats-js": "^1.0.1",
+    "three": "^0.124.0"
+  },
+  "devDependencies": {
+    "node-sass": "^5.0.0",
+    "redux-devtools-extension": "^2.13.8"
   },
   "scripts": {
     "start": "react-scripts start",
