@@ -2,6 +2,7 @@ import * as three from 'three';
 import Stats from 'stats-js';
 
 import { createControls } from './controls';
+import place from './place';
 
 import audio from './audio';
 import sound from './audio/audio.mp3';
@@ -38,6 +39,9 @@ function init() {
 
   scene = new three.Scene();
 
+  // place
+  place(scene, 10, 10);
+
   geometry = new three.BoxGeometry(0.2, 0.2, 0.2);
   material = new three.MeshLambertMaterial();
 
@@ -45,17 +49,11 @@ function init() {
   scene.add(mesh);
 
   // light
-  const light = new three.AmbientLight('#EEEEEE', 0.2); // soft white light
+  const light = new three.AmbientLight('#EEEEEE', 0.7); // soft white light
   scene.add(light);
 
-  const directionalLight = new three.DirectionalLight('#91CCFF', 0.5);
-  directionalLight.position.x = 100;
-  directionalLight.position.y = 200;
-  directionalLight.position.z = 100;
-  scene.add(directionalLight);
-
   // audio
-  audio(camera, sound, 0.1);
+  // audio(camera, sound, 0.1);
 
   const axesHelper = new three.AxesHelper(5);
   scene.add(axesHelper);
@@ -63,6 +61,9 @@ function init() {
   renderer = new three.WebGLRenderer({ antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setAnimationLoop(animation);
+  renderer.domElement.id = 'scene';
+  if (document.getElementById('scene'))
+    document.body.removeChild(document.getElementById('scene'));
   document.body.appendChild(renderer.domElement);
   control = createControls(camera, renderer);
 }

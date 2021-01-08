@@ -3,7 +3,6 @@ import * as three from 'three';
 const audio = (camera, path, voice = 0.5, play = true) => {
   const listener = new three.AudioListener();
   camera.add(listener);
-  console.log(play);
   const sound = new three.Audio(listener);
 
   const audioLoader = new three.AudioLoader();
@@ -11,6 +10,7 @@ const audio = (camera, path, voice = 0.5, play = true) => {
     sound.setBuffer(buffer);
     sound.setLoop(true);
     sound.setVolume(voice);
+    sound.autoplay = true;
 
     if (play) {
       sound.play();
