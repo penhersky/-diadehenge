@@ -3,10 +3,14 @@ import Stats from 'stats-js';
 
 import { createControls } from './controls';
 import place from './place';
+
 import { Pillar } from './model';
+import { Bullet } from './light';
 
 import img4 from '../assets/stone/stone5.jpg';
 import img5 from '../assets/stone/stone6.jpg';
+
+import variables from '../variables';
 
 const stats = new Stats();
 stats.showPanel(1);
@@ -49,13 +53,20 @@ function init() {
   scene.add(Pillar(img4, 2.2, 3));
   // right
   scene.add(Pillar(img4, 5.8, 1.2));
-  scene.add(Pillar(img5, 4.2, 2));
+  scene.add(Pillar(img5, 4.2, 2, false));
   scene.add(Pillar(img5, 6, 3));
   scene.add(Pillar(img4, 7, 2.2));
 
   // light
-  const light = new three.AmbientLight('#EEEEEE', 0.6); // soft white light
+  const light = new three.AmbientLight(
+    variables.light.color.global,
+    variables.light.intensity.global,
+  ); // soft white light
   scene.add(light);
+
+  Bullet(scene, 1.2, 0.6, 2);
+  Bullet(scene, 5, 0.4, 2);
+  Bullet(scene, 6.5, 0.2, 1.6);
 
   const axesHelper = new three.AxesHelper(5);
   if (process.env.NODE_ENV === 'development') scene.add(axesHelper);
@@ -63,6 +74,7 @@ function init() {
   renderer = new three.WebGLRenderer({ antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setAnimationLoop(animation);
+  renderer.shadowMap.enabled = true;
   renderer.domElement.id = 'scene';
   if (document.getElementById('scene'))
     document.body.removeChild(document.getElementById('scene'));

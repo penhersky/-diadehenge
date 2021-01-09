@@ -12,6 +12,7 @@ const place = (scene, col, row = 1, width = 0.2, hight = 0.2) => {
         side: three.DoubleSide,
       });
       const p = new three.Mesh(placeGeometry, placeMaterial);
+      p.receiveShadow = true;
       p.rotation.x = three.Math.degToRad(-90);
       p.position.setX(index * width);
       p.position.setZ(i * hight);
