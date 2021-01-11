@@ -5,7 +5,7 @@ const variables = {
       primary: '#007ACC',
     },
     intensity: {
-      global: 0.2,
+      global: 0.06,
       primary: 1,
     },
   },

@@ -7,6 +7,8 @@ import place from './place';
 import { Pillar } from './model';
 import { Bullet } from './light';
 
+import logic from './logic';
+
 import img4 from '../assets/stone/stone5.jpg';
 import img5 from '../assets/stone/stone6.jpg';
 
@@ -20,10 +22,14 @@ let camera;
 let scene;
 let renderer;
 let control;
+let lights = [];
 
 function animation() {
   stats.begin();
 
+  logic();
+  const time = Date.now() * 0.0005;
+  lights.map((light) => (light.position.y = Math.cos(time) * 0.75 + 1.25));
   control.update();
 
   stats.end();
@@ -42,8 +48,8 @@ function init() {
 
   scene = new three.Scene();
 
-  // place
-  place(scene, 40, 20);
+  // ground
+  place(scene, 16, 8, 0.5, 0.5);
 
   // models
   // left
@@ -52,6 +58,7 @@ function init() {
   scene.add(Pillar(img5, 0.8, 2.5));
   scene.add(Pillar(img4, 2.2, 3));
   // right
+
   scene.add(Pillar(img4, 5.8, 1.2));
   scene.add(Pillar(img5, 4.2, 2, false));
   scene.add(Pillar(img5, 6, 3));
@@ -64,9 +71,16 @@ function init() {
   ); // soft white light
   scene.add(light);
 
-  Bullet(scene, 1.2, 0.6, 2);
-  Bullet(scene, 5, 0.4, 2);
-  Bullet(scene, 6.5, 0.2, 1.6);
+  const spotLight = new three.SpotLight(variables.light.color.global, 0.2);
+  spotLight.position.set(100, 1000, 100);
+
+  scene.add(spotLight);
+
+  lights.push(Bullet(1.2, 0.6, 2));
+  lights.push(Bullet(3.5, 0.4, 1));
+  lights.push(Bullet(5, 0.4, 2));
+  lights.push(Bullet(6.5, 0.2, 1.6));
+  scene.add(...lights);
 
   const axesHelper = new three.AxesHelper(5);
   if (process.env.NODE_ENV === 'development') scene.add(axesHelper);
@@ -80,6 +94,14 @@ function init() {
     document.body.removeChild(document.getElementById('scene'));
   document.body.appendChild(renderer.domElement);
   control = createControls(camera, renderer);
+  window.addEventListener('resize', onWindowResized, false);
+}
+
+function onWindowResized() {
+  renderer.setSize(window.innerWidth, window.innerHeight);
+
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
 }
 
 export default init;
