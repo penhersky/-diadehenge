@@ -1,0 +1,23 @@
+.settings {
+  position: fixed;
+  z-index: 10000;
+  bottom: 5px;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: nowrap row;
+}
+
+.option {
+  min-width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: nowrap column;
+}
+
+.option:hover {
+  cursor: pointer;
+}

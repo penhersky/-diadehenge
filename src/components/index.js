@@ -1,1 +1,1 @@
-export { default as Sound } from './sound';
+export { default as Settings } from './Settings';

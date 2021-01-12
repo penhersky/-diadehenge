@@ -1,7 +1,7 @@
 import React from 'react';
 import projection from './projection';
 
-import { Sound } from './components';
+import { Settings } from './components';
 
 import './App.css';
 
@@ -12,7 +12,7 @@ function App() {
   }, []);
   return (
     <div id='app'>
-      <Sound play={play} setPlay={setPlay} />
+      <Settings play={play} setPlay={setPlay} />
     </div>
   );
 }

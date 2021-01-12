@@ -1,13 +1,21 @@
 import * as three from 'three';
 import Stats from 'stats-js';
 
+import store from '../redux/store';
+
 import { createControls } from './controls';
 import place from './place';
 
 import { Pillar } from './model';
+
+import audioPlay from './audio';
+import audio from './audio/audio.mp3';
+
 import { Bullet } from './light';
+import { lightPosition } from './positions';
 
 import logic from './logic';
+import { orbitCalculation } from './animation/circleAction';
 
 import img4 from '../assets/stone/stone5.jpg';
 import img5 from '../assets/stone/stone6.jpg';
@@ -22,21 +30,35 @@ let camera;
 let scene;
 let renderer;
 let control;
+let sound;
 let lights = [];
 
 function animation() {
   stats.begin();
+  const settings = store.getState().settings;
 
   logic();
-  const time = Date.now() * 0.0005;
-  lights.map((light) => (light.position.y = Math.cos(time) * 0.75 + 1.25));
+  if (settings.animations) {
+    const result = orbitCalculation(0.4);
+    lights.map((l, i) => {
+      l.position.x = lightPosition.bullet[i].x + result.x;
+      l.position.z = lightPosition.bullet[i].z + result.z;
+      return l;
+    });
+  }
+  if (settings.sound) {
+    sound?.play();
+  } else {
+    sound?.pause();
+  }
+
   control.update();
 
   stats.end();
   renderer.render(scene, camera);
 }
 
-function init() {
+async function init() {
   camera = new three.PerspectiveCamera(
     70,
     window.innerWidth / window.innerHeight,
@@ -73,14 +95,14 @@ function init() {
 
   const spotLight = new three.SpotLight(variables.light.color.global, 0.2);
   spotLight.position.set(100, 1000, 100);
-
   scene.add(spotLight);
 
-  lights.push(Bullet(1.2, 0.6, 2));
-  lights.push(Bullet(3.5, 0.4, 1));
-  lights.push(Bullet(5, 0.4, 2));
-  lights.push(Bullet(6.5, 0.2, 1.6));
+  lights = [...lightPosition.bullet.map(({ x, y, z }) => Bullet(x, y, z))];
   scene.add(...lights);
+
+  // sound
+  sound = await audioPlay(camera, audio);
+  console.log(sound);
 
   const axesHelper = new three.AxesHelper(5);
   if (process.env.NODE_ENV === 'development') scene.add(axesHelper);
