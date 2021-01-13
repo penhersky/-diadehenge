@@ -1,9 +1,9 @@
 import { SET_SOUND, SET_SHADOWS, SET_ANIMATIONS } from '../types';
 
 export const initialState = {
-  sound: true,
-  shadows: true,
-  animations: true,
+  sound: false,
+  shadows: false,
+  animations: false,
 };
 
 export const settings = (state = initialState, action) => {

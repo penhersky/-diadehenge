@@ -12,12 +12,11 @@ import audioPlay from './audio';
 import audio from './audio/audio.mp3';
 
 import { Bullet } from './light';
-import { lightPosition } from './positions';
+import { lightPosition, modelPosition } from './positions';
 
 import logic from './logic';
 import { orbitCalculation } from './animation/circleAction';
 
-import img4 from '../assets/stone/stone5.jpg';
 import img5 from '../assets/stone/stone6.jpg';
 
 import variables from '../variables';
@@ -32,6 +31,7 @@ let renderer;
 let control;
 let sound;
 let lights = [];
+let pillars = [];
 
 function animation() {
   stats.begin();
@@ -46,6 +46,9 @@ function animation() {
       return l;
     });
   }
+
+  pillars.map((model) => (model.castShadow = settings.shadows));
+
   if (settings.sound) {
     sound?.play();
   } else {
@@ -74,17 +77,9 @@ async function init() {
   place(scene, 16, 8, 0.5, 0.5);
 
   // models
-  // left
-  scene.add(Pillar(img5, 2.3, 1));
-  scene.add(Pillar(img4, 0.5, 1.6));
-  scene.add(Pillar(img5, 0.8, 2.5));
-  scene.add(Pillar(img4, 2.2, 3));
-  // right
-
-  scene.add(Pillar(img4, 5.8, 1.2));
+  pillars = [...modelPosition.pillar.map(({ x, z }) => Pillar(img5, x, z))];
+  scene.add(...pillars);
   scene.add(Pillar(img5, 4.2, 2, false));
-  scene.add(Pillar(img5, 6, 3));
-  scene.add(Pillar(img4, 7, 2.2));
 
   // light
   const light = new three.AmbientLight(
