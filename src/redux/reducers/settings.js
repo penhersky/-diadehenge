@@ -1,9 +1,11 @@
 import { SET_SOUND, SET_SHADOWS, SET_ANIMATIONS } from '../types';
 
+const isProd = process.env.NODE_ENV === 'production';
+
 export const initialState = {
-  sound: false,
-  shadows: false,
-  animations: false,
+  sound: isProd,
+  shadows: isProd,
+  animations: isProd,
 };
 
 export const settings = (state = initialState, action) => {

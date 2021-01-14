@@ -6,7 +6,7 @@ import store from '../redux/store';
 import { createControls } from './controls';
 import place from './place';
 
-import { Pillar } from './model';
+import { Pillar, smallStone } from './model';
 
 import audioPlay from './audio';
 import audio from './audio/audio.mp3';
@@ -81,6 +81,14 @@ async function init() {
   scene.add(...pillars);
   scene.add(Pillar(img5, 4.2, 2, false));
 
+  smallStone(scene, { x: 0.5, z: 2.8 }, 60, 10);
+  smallStone(scene, { x: 1.2, z: 0.5 }, 60, 60);
+  smallStone(scene, { x: 2.1, z: 1.7 });
+  smallStone(scene, { x: 3.2, z: 1.2 }, 10, 60);
+  smallStone(scene, { x: 4.2, z: 2.7 }, 30);
+  smallStone(scene, { x: 5.2, z: 1.7 }, 90);
+  smallStone(scene, { x: 6.2, z: 1.1 }, 40);
+
   // light
   const light = new three.AmbientLight(
     variables.light.color.global,
@@ -97,7 +105,6 @@ async function init() {
 
   // sound
   sound = await audioPlay(camera, audio);
-  console.log(sound);
 
   const axesHelper = new three.AxesHelper(5);
   if (process.env.NODE_ENV === 'development') scene.add(axesHelper);
