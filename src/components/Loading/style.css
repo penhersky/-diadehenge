@@ -1,0 +1,28 @@
+#loading-area {
+  width: 100vw;
+  height: 100vh;
+  background-color: #1e1e1e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: nowrap column;
+  position: absolute;
+  z-index: 10011;
+}
+
+.count {
+  text-align: center;
+  font-weight: 100;
+  font-size: 5em;
+  color: white;
+  margin: 10px 0;
+  font-family: 'Damion', cursive;
+}
+
+.progress-bar {
+  height: 2px;
+  width: 0px;
+  background: white;
+  max-width: 300px;
+  /* transition: linear 0.2s; */
+}

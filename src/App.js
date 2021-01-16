@@ -1,7 +1,7 @@
 import React from 'react';
 import projection from './projection';
 
-import { Settings } from './components';
+import { Settings, Loading } from './components';
 
 import './App.css';
 
@@ -13,6 +13,7 @@ function App() {
   return (
     <div id='app'>
       <Settings play={play} setPlay={setPlay} />
+      <Loading />
     </div>
   );
 }
