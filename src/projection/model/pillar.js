@@ -1,5 +1,7 @@
 import * as three from 'three';
 
+import manager from '../loadManager';
+
 const pillar = (
   img,
   x = 0,
@@ -10,27 +12,27 @@ const pillar = (
 ) => {
   // const texture = [
   //   new three.MeshLambertMaterial({
-  //     map: new three.TextureLoader().load(img),
+  //     map: new three.TextureLoader(manager).load(img),
   //     side: three.FrontSide,
   //   }),
   //   new three.MeshLambertMaterial({
-  //     map: new three.TextureLoader().load(img),
+  //     map: new three.TextureLoader(manager).load(img),
   //     side: three.FrontSide,
   //   }),
   //   new three.MeshLambertMaterial({
-  //     map: new three.TextureLoader().load(img),
+  //     map: new three.TextureLoader(manager).load(img),
   //     side: three.FrontSide,
   //   }),
   //   new three.MeshLambertMaterial({
-  //     map: new three.TextureLoader().load(img),
+  //     map: new three.TextureLoader(manager).load(img),
   //     side: three.FrontSide,
   //   }),
   //   new three.MeshLambertMaterial({
-  //     map: new three.TextureLoader().load(img),
+  //     map: new three.TextureLoader(manager).load(img),
   //     side: three.FrontSide,
   //   }),
   //   new three.MeshLambertMaterial({
-  //     map: new three.TextureLoader().load(img),
+  //     map: new three.TextureLoader(manager).load(img),
   //     side: three.FrontSide,
   //   }),
   // ];
