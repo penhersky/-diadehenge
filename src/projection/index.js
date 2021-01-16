@@ -12,7 +12,7 @@ import audioPlay from './audio';
 import audio from './audio/audio.mp3';
 
 import { Bullet } from './light';
-import { lightPosition, modelPosition } from './positions';
+import { lightPosition, modelPosition, stonePosition } from './positions';
 
 import logic from './logic';
 import { orbitCalculation } from './animation/circleAction';
@@ -81,13 +81,9 @@ async function init() {
   scene.add(...pillars);
   scene.add(Pillar(img5, 4.2, 2, false));
 
-  smallStone(scene, { x: 0.5, z: 2.8 }, 60, 10);
-  smallStone(scene, { x: 1.2, z: 0.5 }, 60, 60);
-  smallStone(scene, { x: 2.1, z: 1.7 });
-  smallStone(scene, { x: 3.2, z: 1.2 }, 10, 60);
-  smallStone(scene, { x: 4.2, z: 2.7 }, 30);
-  smallStone(scene, { x: 5.2, z: 1.7 }, 90);
-  smallStone(scene, { x: 6.2, z: 1.1 }, 40);
+  stonePosition.small.map(({ x, rotateX, rotateY, z }) =>
+    smallStone(scene, { x, z }, rotateX, rotateY),
+  );
 
   // light
   const light = new three.AmbientLight(
