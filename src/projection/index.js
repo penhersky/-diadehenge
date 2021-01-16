@@ -32,6 +32,7 @@ let control;
 let sound;
 let lights = [];
 let pillars = [];
+let fog;
 
 function animation() {
   stats.begin();
@@ -48,6 +49,10 @@ function animation() {
   }
 
   pillars.map((model) => (model.castShadow = settings.shadows));
+
+  if (settings.fog) {
+    if (!scene.fog) scene.fog = fog;
+  } else scene.fog = null;
 
   if (settings.sound) {
     sound?.play();
@@ -76,6 +81,10 @@ async function init() {
   // ground
   place(scene, 16, 8, 0.5, 0.5);
 
+  // fog
+  fog = new three.Fog('lightblue', 1, 7);
+  scene.fog = fog;
+
   // models
   pillars = [...modelPosition.pillar.map(({ x, z }) => Pillar(img5, x, z))];
   scene.add(...pillars);
@@ -92,7 +101,7 @@ async function init() {
   ); // soft white light
   scene.add(light);
 
-  const spotLight = new three.SpotLight(variables.light.color.global, 0.2);
+  const spotLight = new three.SpotLight(variables.light.color.global, 0.3);
   spotLight.position.set(100, 1000, 100);
   scene.add(spotLight);
 

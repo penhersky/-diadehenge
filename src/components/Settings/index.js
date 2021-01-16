@@ -3,13 +3,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Icon } from '@blueprintjs/core';
 import { IconNames } from '@blueprintjs/icons';
 
-import { SET_SOUND, SET_ANIMATIONS, SET_SHADOWS } from '../../redux/types';
+import {
+  SET_SOUND,
+  SET_ANIMATIONS,
+  SET_SHADOWS,
+  SET_FOG,
+} from '../../redux/types';
 
 import './style.css';
 
 const Sound = (props) => {
   const dispatch = useDispatch();
-  const { sound, animations, shadows } = useSelector((state) => state.settings);
+  const { sound, animations, shadows, fog } = useSelector(
+    (state) => state.settings,
+  );
 
   const onChangeSound = () => {
     dispatch({
@@ -29,12 +36,25 @@ const Sound = (props) => {
       shadows: !shadows,
     });
   };
+  const onChangeFog = () => {
+    dispatch({
+      type: SET_FOG,
+      fog: !fog,
+    });
+  };
   const MyIcon = ({ icon }) => (
     <Icon icon={icon} iconSize={30} className='icon' color='#CECECE' />
   );
 
   return (
     <div className='settings'>
+      <div onClick={onChangeFog} className='option'>
+        {fog ? (
+          <MyIcon icon={IconNames.CLOUD} />
+        ) : (
+          <MyIcon icon={IconNames.CLOUD_DOWNLOAD} />
+        )}
+      </div>
       <div onClick={onChangeShadows} className='option'>
         {shadows ? (
           <MyIcon icon={IconNames.INNER_JOIN} />

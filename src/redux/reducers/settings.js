@@ -1,4 +1,4 @@
-import { SET_SOUND, SET_SHADOWS, SET_ANIMATIONS } from '../types';
+import { SET_SOUND, SET_SHADOWS, SET_ANIMATIONS, SET_FOG } from '../types';
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -6,6 +6,7 @@ export const initialState = {
   sound: isProd,
   shadows: isProd,
   animations: isProd,
+  fog: isProd,
 };
 
 export const settings = (state = initialState, action) => {
@@ -24,6 +25,11 @@ export const settings = (state = initialState, action) => {
       return {
         ...state,
         animations: action.animations,
+      };
+    case SET_FOG:
+      return {
+        ...state,
+        fog: action.fog,
       };
     default:
       return state;
