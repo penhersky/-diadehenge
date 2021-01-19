@@ -6,7 +6,7 @@ import store from '../redux/store';
 import { createControls } from './controls';
 import place from './place';
 
-import { Pillar, smallStone } from './model';
+import { Pillar, smallStone, mtlObj } from './model';
 
 import audioPlay from './audio';
 import audio from './audio/audio.mp3';
@@ -16,8 +16,6 @@ import { lightPosition, modelPosition, stonePosition } from './positions';
 
 import logic from './logic';
 import { orbitCalculation } from './animation/circleAction';
-
-import img5 from '../assets/stone/stone6.jpg';
 
 import variables from '../variables';
 
@@ -86,13 +84,17 @@ async function init() {
   scene.fog = fog;
 
   // models
-  pillars = [...modelPosition.pillar.map(({ x, z }) => Pillar(img5, x, z))];
+  pillars = [...modelPosition.pillar.map(({ x, z }) => Pillar('', x, z))];
   scene.add(...pillars);
-  scene.add(Pillar(img5, 4.2, 2, false));
+  scene.add(Pillar('', 4.2, 2, false));
 
   stonePosition.small.map(({ x, rotateX, rotateY, z }) =>
     smallStone(scene, { x, z }, rotateX, rotateY),
   );
+
+  mtlObj('', '', (object) => {
+    scene.add(object);
+  }); // temp
 
   // light
   const light = new three.AmbientLight(
